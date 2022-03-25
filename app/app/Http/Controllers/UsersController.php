@@ -17,10 +17,9 @@ class UsersController extends Controller
        $users = DB::table('users')
        ->select('id', 'name')
        ->get();
-    //    compactで変数をviewに渡してる。ここ抜けててクソ詰まった
+    //compactで変数をviewに渡してる。ここ抜けててクソ詰まった
        return view('users.index', compact('users'));
     }
-
     /**
      * Show the form for creating a new resource.
      *
