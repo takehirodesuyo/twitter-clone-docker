@@ -1,10 +1,10 @@
 <?php
 
-use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
 
-return new class extends Migration
+class CreateFollowersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,8 +14,16 @@ return new class extends Migration
     public function up()
     {
         Schema::create('followers', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+            $table->unsignedInteger('following_id')->comment('フォローしているユーザID');
+            $table->unsignedInteger('followed_id')->comment('フォローされているユーザID');
+
+            $table->index('following_id');
+            $table->index('followed_id');
+
+            $table->unique([
+                'following_id',
+                'followed_id'
+            ]);
         });
     }
 
@@ -28,4 +36,4 @@ return new class extends Migration
     {
         Schema::dropIfExists('followers');
     }
-};
+}
